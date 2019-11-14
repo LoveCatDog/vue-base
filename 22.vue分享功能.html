@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>22、vue分享功能</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="shareToQQ">分享到QQ</button>
+        <button @click="shareToRoom">分享到QQ空间</button>
+        <button @click="shareToBlog">分享到微博</button>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {}
+        },
+        methods: {
+            // 分享到QQ
+            shareToQQ: function () {
+                const share = {
+                    title: "会吃鱼的猫-QQ",
+                    desc: "描述一个事情",
+                    share_url: 'https://github.com/LoveCatDog'
+                };
+                location.replace("https://connect.qq.com/widget/shareqq/index.html?url=" +
+                    encodeURIComponent(share.share_url) +
+                    "&title=" +
+                    share.title +
+                    "&desc=" +
+                    share.desc);
+            },
+            // 分享到QQ空间
+            shareToRoom: function () {
+                const share = {
+                    title: "会吃鱼的猫-QQ空间",
+                    desc: "描述一个事情",
+                    image_url: ["https://avatars2.githubusercontent.com/u/44599956"],
+                    share_url: 'https://github.com/LoveCatDog'
+                };
+                let image_urls = share.image_url.map(function (image) {
+                    return encodeURIComponent(image);
+                });
+                location.replace(
+                    "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" +
+                    encodeURIComponent(share.share_url) +
+                    "&title=" +
+                    share.title +
+                    "&pics=" +
+                    image_urls.join("|") +
+                    "&summary=" +
+                    share.desc
+                );
+            },
+            // 分享到微博
+            shareToBlog: function () {
+
+                const share = {
+                    title: "会吃鱼的猫-微博",
+                    image_url: ["https://avatars2.githubusercontent.com/u/44599956"],
+                    share_url: 'https://github.com/LoveCatDog'
+                };
+
+                //跳转地址
+                location.replace(
+                    "https://service.weibo.com/share/share.php?url=" +
+                    encodeURIComponent(share.share_url) +
+                    "&title=" +
+                    share.title +
+                    "&pic=" +
+                    share.image_url +
+                    "&searchPic=true"
+                );
+            }
+        }
+    })
+</script>
+
+</html>
