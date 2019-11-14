@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>03、文字走马灯效果</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="run" @click="handleRun">
+        <input type="button" value="stop" @click="handleStop">
+        <h1>{{msg}}</h1>
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '案例，走马灯效果实例',
+            controlInterval: null,
+        },
+        methods: {
+            handleRun: function () {
+                if (this.controlInterval != null) return;
+                // setInterval():方法可按照指定的周期(以毫秒计)来调用函数或计算表达式（可循环调用函数）
+                this.controlInterval = setInterval(() => {
+                    let start = this.msg.substring(0, 1); //截取第一个字符
+                    let end = this.msg.substring(1); //返回除了第一个字符
+                    // console.log('end', end, 'start:', start)
+                    this.msg = end + start;
+                }, 2000)
+                // console.log('点击按钮触发事件', this.controlInterval)
+            },
+            handleStop: function () {
+                clearInterval(this.controlInterval); //清除
+                this.controlInterval = null;
+            }
+        }
+    })
+</script>
+
+</html>

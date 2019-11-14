@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>06、简易计算器</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="numberPre" />
+        <select v-model="selectOption">
+            <option v-for="item in selectArrList" :value='item'>{{item}}</option>
+        </select>
+        <input type="text" v-model="numberNext" />
+        <input type="button" value="=" @click="handleCalc" />
+        <br>
+        结果： <input type="text" v-model="numberSum" readonly />
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            selectArrList: ['+', '-', '*', "/", '%'],
+            selectOption: '+',
+            numberPre: '', //第一个值
+            numberNext: '', //第二个值
+            numberSum: '', //两个数计算
+        },
+        methods: {
+            handleCalc: function () {
+
+                let sum = 'parseInt(this.numberPre)' + this.selectOption +
+                    'parseInt(this.numberNext)';
+                this.numberSum = eval(sum); //eval()函数,可计算某个字符串，并执行其中的JavaScript代码
+            }
+        }
+    })
+</script>
+
+</html>

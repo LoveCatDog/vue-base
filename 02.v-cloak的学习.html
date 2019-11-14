@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>02、v-cloak的学习</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p v-cloak>------------{{msg}}=============</p>
+        <h3 v-text="msg">===========</h3>
+        <div>{{msg2}}</div>
+        <div v-text="msg2"></div>
+        <div v-html="msg2"></div>
+        <input type="button" value="按钮" :title="mytitle+'123'" @click="show" />
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '123',
+            msg2: '<h1>我是大的h1</h1>',
+            mytitle: '这是一个自己定义的title'
+        },
+        methods: {
+            show: function () {
+                console.log('点击按钮触发事件')
+            }
+        }
+    })
+</script>
+
+</html>

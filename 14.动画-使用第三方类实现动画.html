@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>14、动画-使用第三方类实现动画</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+
+<body>
+    <div id="app">
+        <p>尊敬的宝宝们：动画插件引用于：https://daneden.github.io/animate.css/
+            类似于需要什么类型动画，可以自己在网站中操作案例，选择需要的那动画填上去，
+            比如：
+            leave-active-class="hinge" 是离开时候会触发hinge 动画
+        </p>
+        <button @click="flag=!flag">动画切换</button>
+        <!-- <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <h1 v-if="flag">这是一个H1</h1>
+        </transition> -->
+        <!-- :duration 可以放在 transition 上，也可以放在标签上 -->
+        <!-- 使用 :duration="毫秒值" 来统一设置入场和离场时候的动画时长 -->
+        <!-- <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="2000">
+            <h1 v-if="flag" class="animated">这是一个H1</h1>
+        </transition> -->
+
+        <!-- 通过传入对象，分别设置入场的时长和离场的时长 -->
+        <transition enter-active-class="heartBeat" leave-active-class="hinge" :duration="{ enter:200, leave:800 }">
+            <h1 v-if="flag" class="animated">这是一个H1</h1>
+        </transition>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '欢迎学习vue',
+            flag: true
+        },
+        methods: {
+            // handleAnimated() {
+            //     this.flag = !this.flag;
+            // }
+        }
+    })
+</script>
+
+</html>

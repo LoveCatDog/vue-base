@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04、事件修饰符</title>
+    <script src="lib/vue-2.6.10.js"></script>
+    <style>
+        .outer {
+            border: 1px solid red;
+            padding: 10px;
+        }
+
+        .inner {
+            border: 1px solid blue;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="divHandle">
+            <!-- 使用stop阻止冒泡:阻止子级事件冒泡到父级 -->
+            <input type="button" value="stop:阻止冒泡" @click.stop="btnHandle" />
+        </div>
+        <!-- 使用.pervent阻止默认行为 -->
+        <a href="https://www.baidu.com" @click.prevent="linkClick">有问题，找度娘(pervent阻止默认行为)</a>
+
+
+        <!-- 使用 .capture 实现捕获触发事件的机制 ：父级捕获了子级的事件-->
+        <div class="inner" @click.capture="div1Handler">
+            <input type="button" value="capture 实现捕获触发事件" @click="btnHandle1">
+        </div>
+
+        <!-- 使用.self实现只有点击当前元素时，才会触发事件处理函数 -->
+        <div @click.self="divhandle2">
+            <input type="button" value="self实现点击当前元素" @click="btnHandle2">
+        </div>
+        <!-- prevent.once：第一次点击的时候会阻止默认行为，之后就正常使用-->
+        <a href="https://www.baidu.com" @click.prevent.once="linkClick1">只有一次点击的机会，请慎重考虑</a>
+        <!-- prevent.once：若无默认行为，则once生效，只能触发一次事件 -->
+        <div @click.prevent.once="linkClick1">只有一次点击的机会，请慎重考虑</div>
+
+        <div @click="divHandle3" class="outer">
+            <div @click="divHandle31" class="inner">
+                <input type="button" value="stop实现阻止冒泡" @click.stop="btnHandle3">
+            </div>
+        </div>
+        <!-- 演示.stophe.self的区别 -->
+        <div @click="divHandle4" class="outer">
+            <div @click.self="divHandle41" class="inner">
+                <input type="button" value="self实现点击当前元素" @click="btnHandle4">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+
+            linkClick1: function () {
+                console.log('once只有一次点击的机会')
+            },
+            divHandle: function () {
+                console.log('父使用stop阻止冒泡')
+            },
+            btnHandle: function () {
+                console.log('子使用stop阻止冒泡')
+            },
+            linkClick: function () {
+                console.log('使用.pervent阻止默认行为')
+            },
+            div1Handler: function () {
+                console.log('父capture 实现捕获触发事件的机制')
+            },
+            btnHandle1: function () {
+                console.log('子capture 实现捕获触发事件的机制')
+            },
+            divhandle2: function () {
+                console.log('父 self实现只有点击当前元素时')
+            },
+            btnHandle2: function () {
+                console.log('子 self实现只有点击当前元素时')
+            },
+            divHandle3: function () {
+                console.log('div3 stop实现阻止冒泡')
+            },
+            divHandle31: function () {
+                console.log('div31 stop实现阻止冒泡')
+            },
+            btnHandle3: function () {
+                console.log('btn3 stop实现阻止冒泡')
+            },
+            divHandle4: function () {
+                console.log('div4 self实现点击当前元素')
+            },
+            divHandle41: function () {
+                console.log('div41 self实现点击当前元素')
+            },
+            btnHandle4: function () {
+                console.log('btn4 self实现点击当前元素')
+            },
+
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>15、动画-使用钩子函数模拟小球半场动画</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <style>
+        .ball {
+            width: 15px;
+            height: 15px;
+            border-radius: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="让子弹飞起来" @click="flag=!flag">
+
+        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <div class="ball" v-show="flag"></div>
+        </transition>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag: false
+        },
+        methods: {
+            //el 是通过document.getElementById(''方式获取的原生js dom对象)
+            beforeEnter(el) {
+                // console.log('el', el);
+                el.style.transform = "translate(0,450px)"
+            },
+            enter(el, done) {
+                //这句话，没有实际的作用，但是如果不写，出不来动画效果
+                //可以认为 el.offsetWidth 会强制动画刷新
+                el.offsetWidth;
+                //表示动画开始之后的样式，这里可以设置小球完成动画之后的结束状态
+                el.style.transform = "translate(150px, 0)"; //动画需要改变的位置
+                el.style.transition = 'all 1s ease';
+                //这里的 done，其实就是 afterEnter 函数，也就是说：done 是 afterEnter 函数的引用 
+                done();
+            },
+            afterEnter() {
+                //动画完成之后调用
+                this.flag = !this.flag;
+            },
+        }
+    })
+</script>
+
+</html>

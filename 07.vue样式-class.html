@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Vue的基本代码</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+    <style>
+        .class1 {
+            color: blueviolet;
+        }
+
+        .class2 {
+            background-color: cadetblue;
+        }
+
+        .active {
+            font-size: larger;
+        }
+
+        .class4 {
+            color: chocolate;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方法一：直接传递一个数组， -->
+        <h1 :class="['class1','class2']">方法一：直接传递一个数组，</h1>
+
+        <!-- 方法二：在数组中使用三元表达式 -->
+        <h1 :class="['class1','class2',isClass? 'active' :'']">方法二：在数组中使用三元表达式</h1>
+
+        <!-- 方法三：在数组中使用三元表达式 ,提高代码可读性-->
+        <h1 :class="['class1','class2',{'active':isClass}]">方法三：在数组中使用三元表达式，提高代码可读性</h1>
+
+        <!-- 方法四：用v-bind -->
+        <h1 :class="classObj">方法四：用v-bind</h1>
+
+        <!-- 同时使用多个对象的属性 -->
+        <h1 :style="[classObj1,classObj2]"></h1>
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+            isClass: true,
+            flag: true,
+            classObj: {
+                red: true,
+                thin: true,
+                italic: false,
+                active: false
+            },
+            classObj1: {
+                'font-weight': 200
+            },
+            classObj2: {
+                color: 'red'
+            }
+        }
+    })
+</script>
+
+</html>

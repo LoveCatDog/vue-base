@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>05、v-modal指令</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='./lib/vue-2.6.10.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>用户输入的内容：{{msg}}</p>
+        <input type="text" v-model="msg" />
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: '',
+        }
+    })
+</script>
+
+</html>
